@@ -1,0 +1,14 @@
+.popup__input-error_active {
+    opacity: 1;
+    display: block;
+    margin: 5px 22px 0;
+    font-size: 12px;
+    height: 15px;
+    border: none;
+}
+
+@media all and (min-width: 1100px) {
+    .popup__input-error_active {
+        margin: 5px 36px 13px 36px;
+    }
+}

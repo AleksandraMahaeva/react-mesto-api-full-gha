@@ -1,0 +1,22 @@
+.card__del-button {
+    width: 18px;
+    height: 19px;
+    background-color: transparent;
+    background-image: url(../../../images/basket.svg);
+    border: none;
+    outline: none;
+    background-repeat: no-repeat;
+    transition: .3s;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    margin: 20px 20px auto 244px;
+}
+
+.card__del-button:hover {
+    opacity: .5;
+}
+
+.card__del-button_invisible {
+    visibility: hidden;
+}

@@ -1,0 +1,21 @@
+.card__name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 1.21;
+    white-space: nowrap;
+    margin: 0;
+    margin-right: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 245px;
+}
+
+@media all and (min-width: 1279px) {
+    .card__name {
+        font-size: 42px;
+        line-height: 1.14;
+        margin-right: 25px;
+        width: 358px;
+    }
+}

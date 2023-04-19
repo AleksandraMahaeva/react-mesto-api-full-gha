@@ -1,0 +1,17 @@
+.profile__info {
+    width: 88%;
+    margin: 0;
+    padding-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ @media all and (min-width: 1279px) {
+    .profile__info {
+        width: 66%;
+        align-items: flex-start;
+        padding-top: 22px;
+        padding-bottom: 25px;
+    }
+}
