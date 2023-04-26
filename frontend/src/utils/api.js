@@ -72,7 +72,9 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'http://localhost:3001',
+    // baseUrl: 'http://localhost:3001',
+    baseUrl: 'http://api.AleksandraM.nomoredomains.monster',
+
     //baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-50',
     headers: {
         // authorization: '68ed97fd-561d-4da1-ae76-aadea56716cb',
