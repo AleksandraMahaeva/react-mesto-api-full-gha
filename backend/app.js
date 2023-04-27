@@ -9,13 +9,12 @@ const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/notFoundError');
 
-// const { PORT = 3001 } = process.env;
-const { PORT = aleksandram.nomoredomains.monster } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 app.use(cors({
   // origin: 'http://localhost:3000',
-  origin: 'https://api.aleksandram.nomoredomains.monster',
+  origin: 'https://aleksandram.nomoredomains.monster',
   credentials: true,
 }));
 // app.use(cors({credentials: true}));
