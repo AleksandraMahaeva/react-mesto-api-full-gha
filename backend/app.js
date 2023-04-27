@@ -15,7 +15,7 @@ const { PORT = aleksandram.nomoredomains.monster } = process.env;
 const app = express();
 app.use(cors({
   // origin: 'http://localhost:3000',
-  origin: 'http://api.aleksandram.nomoredomains.monster',
+  origin: 'https://api.aleksandram.nomoredomains.monster',
   credentials: true,
 }));
 // app.use(cors({credentials: true}));
