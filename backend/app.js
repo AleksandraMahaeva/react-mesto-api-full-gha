@@ -12,12 +12,6 @@ const NotFoundError = require('./errors/notFoundError');
 const { PORT = 3001 } = process.env;
 
 const app = express();
-// app.use(cors({
-//   // origin: 'http://localhost:3000',
-//   origin: 'https://aleksandram.nomoredomains.monster',
-//   credentials: true,
-// }));
-// app.use(cors({credentials: true}));
 
 const options = {  
   origin: [    

@@ -1,5 +1,3 @@
-//export const BASE_URL = 'https://auth.nomoreparties.co';
-// export const BASE_URL = 'http://localhost:3001';
 export const BASE_URL = 'https://api.aleksandram.nomoredomains.monster';
 
 const getResponseData = (res) => {
@@ -12,9 +10,7 @@ const getResponseData = (res) => {
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ password, email })
   }).then(getResponseData);
 };
@@ -23,9 +19,7 @@ export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     'credentials': 'include',
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ email, password })
   }).then(getResponseData);
 };
