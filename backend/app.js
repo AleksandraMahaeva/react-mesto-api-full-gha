@@ -12,27 +12,27 @@ const NotFoundError = require('./errors/notFoundError');
 const { PORT = 3001 } = process.env;
 
 const app = express();
-app.use(cors({
-  // origin: 'http://localhost:3000',
-  origin: 'https://aleksandram.nomoredomains.monster',
-  credentials: true,
-}));
+// app.use(cors({
+//   // origin: 'http://localhost:3000',
+//   origin: 'https://aleksandram.nomoredomains.monster',
+//   credentials: true,
+// }));
 // app.use(cors({credentials: true}));
 
-// const options = {  
-//   origin: [    
-//     'http://localhost:3001',    
-//     // 'https://ВАШ ДОМЕЙН С ДОКУМЕНТА',    
-//     // 'https://YOUR.github.io',  
-//   ],  
-//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  
-//   preflightContinue: false,  
-//   optionsSuccessStatus: 204,  
-//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],  
-//   credentials: true,
-// };
+const options = {  
+  origin: [    
+    'https://aleksandram.nomoredomains.monster',    
+    // 'https://ВАШ ДОМЕЙН С ДОКУМЕНТА',    
+    // 'https://YOUR.github.io',  
+  ],  
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  
+  preflightContinue: false,  
+  optionsSuccessStatus: 204,  
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],  
+  credentials: true,
+};
 
-// app.use('*', cors(options));
+app.use('*', cors(options));
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
