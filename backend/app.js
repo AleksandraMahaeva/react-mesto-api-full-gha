@@ -14,11 +14,7 @@ const { PORT = 3001 } = process.env;
 const app = express();
 
 const options = {  
-  origin: [    
-    'https://aleksandram.nomoredomains.monster',    
-    // 'https://ВАШ ДОМЕЙН С ДОКУМЕНТА',    
-    // 'https://YOUR.github.io',  
-  ],  
+  origin: ['https://aleksandram.nomoredomains.monster'],  
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  
   preflightContinue: false,  
   optionsSuccessStatus: 204,  
@@ -34,6 +30,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+}); 
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

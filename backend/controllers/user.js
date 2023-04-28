@@ -95,7 +95,7 @@ module.exports.login = (req, res, next) => {
             maxAge: '3600000',
             httpOnly: true,
             sameSite: false,
-            secure: false, //process.env.NODE_ENV === "production",
+            secure: false,
           }).send({ message: 'Вы успешно авторизовались' });
         });
     })
