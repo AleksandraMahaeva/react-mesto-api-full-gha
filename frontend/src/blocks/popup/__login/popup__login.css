@@ -1,0 +1,54 @@
+.popup_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.popup__login-header {
+    margin: 0;
+    margin-top: 60px;
+    color: #FFFFFF;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.popup__login-email {
+    margin-top: 30px;
+    border: none;
+    color: #CCCCCC;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 2px solid #CCCCCC;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.popup__login-password {
+    margin-top: 15px;
+    border: none;
+    color: #CCCCCC;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 2px solid #CCCCCC;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+
+.popup__login-button {
+    margin-top: 216px;
+    border: none;
+    padding: 14px 84px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 22px;
+    width: 358px;
+    border-radius: 2px;
+}

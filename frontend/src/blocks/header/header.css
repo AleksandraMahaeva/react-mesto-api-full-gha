@@ -1,0 +1,29 @@
+.header {
+    margin: 0 auto;
+    padding-top: 28px;
+    padding-left: 27px;
+    border-bottom: 1px solid rgb(84, 84, 84, 0.7);
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+@media all and (min-width: 600px) {
+    .header {
+        max-width: 582px;
+    }
+}
+
+@media all and (min-width: 900px) {
+    .header {
+        max-width: 880px;
+    }
+}
+
+@media all and (min-width: 1279px) {
+    .header {
+        padding-top: 45px;
+        padding-left: 0px;
+    }
+}

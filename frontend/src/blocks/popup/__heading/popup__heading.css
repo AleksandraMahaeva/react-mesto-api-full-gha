@@ -1,0 +1,15 @@
+.popup__heading {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #000000;
+    margin: 25px 22px 75px 22px;
+}
+
+@media all and (min-width: 1279px) {
+    .popup__heading {
+        margin: 34px 64px 54px 36px;
+        font-size: 24px;
+    }
+}

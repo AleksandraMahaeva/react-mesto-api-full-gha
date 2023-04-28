@@ -1,0 +1,32 @@
+.card__like-quantity {
+    width: 22px;
+    height: 19px;
+    background-color: transparent;
+    background-image: url(../../../images/like.svg);
+    border: none;
+    outline: none;
+    background-repeat: no-repeat;
+    transition: .3s;
+    cursor: pointer;
+    padding: 0;
+}
+
+.card__like-quantity:hover {
+    opacity: .5;
+}
+
+
+.like_active {
+    background-image: url(../../../images/like_active.svg);
+}
+
+
+.card__like-quantity-number {
+    color: black;
+    text-align: center;
+}
+.card__like-quantity-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
