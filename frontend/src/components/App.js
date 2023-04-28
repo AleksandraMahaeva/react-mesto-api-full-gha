@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
@@ -16,7 +16,7 @@ import InfoTooltipPopup from "./InfoTooltip";
 import * as auth from '../utils/auth.js';
 
 const errorText = 'Что-то пошло не так! Попробуйте ещё раз.'
-const successRegisterText = 'Вы успешно зарегистрировались!'
+const successRegisterText = 'Вы успешно зарегестрировались!'
 
 const App = () => {
 
@@ -62,7 +62,7 @@ const App = () => {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.toggleLike(isLiked, card._id)
     .then((newCard) => {
       setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
@@ -123,8 +123,8 @@ const App = () => {
 
   function handleLogin(email, password, clearForm) {
     auth.authorize(email, password)
-    .then((token) => {
-      localStorage.setItem('token', token);
+    .then((data) => {
+      localStorage.setItem('token', data.token);
       clearForm()
       setLoggedIn(true)
       navigate('/', { replace: true })
@@ -157,7 +157,7 @@ const App = () => {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          setEmail(res.email);
+          setEmail(res.data.email);
           navigate("/", { replace: true })
         }
       })
