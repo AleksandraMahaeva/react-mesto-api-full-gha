@@ -6,6 +6,7 @@ const Main = (props) => {
   const { onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, onCardLike, onCardDelete } = props
   const currentUser = useContext(CurrentUserContext);//подписка на контекст
   const { name, about, avatar } = currentUser;
+  console.log(currentUser)
 
   return (
     <main>

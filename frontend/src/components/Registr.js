@@ -1,9 +1,7 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import * as Auth from './Auth.js';
 
-const Register = ({ openInfoTooltipPopup }) => {
+const Register = ({ onRegister }) => {
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
@@ -19,11 +17,7 @@ const Register = ({ openInfoTooltipPopup }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    Auth.register(formValue.email, formValue.password).then((res) => {
-      if (res.error) {
-        openInfoTooltipPopup(false)
-      } else openInfoTooltipPopup(true)
-    });
+    onRegister(formValue.email, formValue.password)
   }
 
   return (

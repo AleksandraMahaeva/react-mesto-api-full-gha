@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
@@ -13,9 +13,12 @@ import Registr from './Registr';
 import Login from './Login';
 import ProtectedRouteElement from "./ProtectedRoute";
 import InfoTooltipPopup from "./InfoTooltip";
-import * as Auth from './Auth.js';
+import * as auth from '../utils/auth.js';
 
-const App = (props) => {
+const errorText = 'Что-то пошло не так! Попробуйте ещё раз.'
+const successRegisterText = 'Вы успешно зарегистрировались!'
+
+const App = () => {
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
@@ -27,21 +30,24 @@ const App = (props) => {
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState(null);
+  const [infoText, setInfoText] = useState('')
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    Promise.all([
-      api.getUserInfo(),
-      api.getCreateCard()])
-      .then(([user, initialCards]) => {
-        setCurrentUser(user);
-        setCards(initialCards)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, []);
+    if (loggedIn) {
+      Promise.all([
+        api.getUserInfo(),
+        api.getCreateCard()])
+        .then(([user, initialCards]) => {
+          setCurrentUser(user);
+          setCards(initialCards)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [loggedIn]);
 
   function closeAllPopups() {
     setEditProfilePopupOpen(false)
@@ -56,56 +62,88 @@ const App = (props) => {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.toggleLike(isLiked, card._id).then((newCard) => {
+    const isLiked = card.likes.some(i => i === currentUser._id);
+    api.toggleLike(isLiked, card._id)
+    .then((newCard) => {
       setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
     })
-      .catch((err) => {
-        console.log(err);
-      })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleCardDelete(id) {
-    api.deleteCard(id).then(() => {
+    api.deleteCard(id)
+    .then(() => {
       setCards((cards) => cards.filter((c) => c._id !== id));
     })
-      .catch((err) => {
-        console.log(err);
-      })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleUpdateUser(userInfo) {
-    api.setUserInfo(userInfo).then(() => {
+    api.setUserInfo(userInfo)
+    .then(() => {
       setCurrentUser({ ...currentUser, name: userInfo.name, about: userInfo.about });
       closeAllPopups()
     })
-      .catch((err) => {
-        console.log(err);
-      })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleUpdateAvatar(avatarInfo) {
-    api.updateAvatar(avatarInfo).then(() => {
+    api.updateAvatar(avatarInfo)
+    .then(() => {
       setCurrentUser({ ...currentUser, avatar: avatarInfo.avatar });
       closeAllPopups()
     })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  function handleLogin() {
-    setLoggedIn(true)
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleAddCard(card) {
-    api.setCreateCard(card).then((newCard) => {
+    api.setCreateCard(card)
+    .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups()
     })
-      .catch((err) => {
-        console.log(err);
-      })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  function openInfoTooltipPopup(isSuccess, text) {
+    setIsSuccess(isSuccess);
+    setInfoText(text)
+    setInfoTooltipPopupOpen(true);
+  }
+
+  function handleLogin(email, password, clearForm) {
+    auth.authorize(email, password)
+    .then((token) => {
+      localStorage.setItem('token', token);
+      clearForm()
+      setLoggedIn(true)
+      navigate('/', { replace: true })
+    })
+    .catch((err) => {
+      console.log(err);
+      openInfoTooltipPopup(false, errorText)
+    })
+  }
+
+  function handleRegister(email, password ) {
+    auth.register(email, password)
+    .then((res) => {
+      openInfoTooltipPopup(true, successRegisterText)
+    })
+    .catch((err) => {
+      console.log(err);
+      openInfoTooltipPopup(false, errorText)
+    })
   }
 
   useEffect(() => {
@@ -113,19 +151,19 @@ const App = (props) => {
   }, [loggedIn])
 
   function tokenCheck() {
-    // эта функция проверит валидность токена
     const token = localStorage.getItem('token');
     if (token) {
-      // проверим токен
-      Auth.checkToken(token).then((res) => {
+      auth.checkToken(token)
+      .then((res) => {
         if (res) {
-          // авторизуем пользователя
           setLoggedIn(true);
-          console.log(res.data)
-          setEmail(res.data.email);
+          setEmail(res.email);
           navigate("/", { replace: true })
         }
-      });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   }
 
@@ -135,9 +173,12 @@ const App = (props) => {
     navigate('/sign-in', { replace: true });
   }
 
-  function openInfoTooltipPopup(isSuccess) {
-    setIsSuccess(isSuccess);
-    setInfoTooltipPopupOpen(true);
+  function onCloseToolTipPopup() {
+    //при успешной регистрации показывается попап успеха(по дизайну) и на его закрытие происходит редирект на страницу входа
+    if (isSuccess) {
+      closeAllPopups()
+      navigate('/sign-in', { replace: true })
+    } else closeAllPopups()
   }
 
   const Home = ((props) => {
@@ -169,7 +210,7 @@ const App = (props) => {
           <Route exact path="/sign-up" element={
             <>
               <Header isRegistr />
-              <Registr openInfoTooltipPopup={openInfoTooltipPopup} />
+              <Registr onRegister={handleRegister} />
             </>
           } />
         </Routes>
@@ -179,7 +220,7 @@ const App = (props) => {
         <PopupWithForm buttonName="Да" name="confirmation-form" title="Вы уверены?">
         </PopupWithForm>
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-        <InfoTooltipPopup isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} isSuccess={isSuccess} />
+        <InfoTooltipPopup isOpen={isInfoTooltipPopupOpen} onClose={onCloseToolTipPopup} isSuccess={isSuccess} text={infoText}/>
       </div>
     </CurrentUserContext.Provider>
   );

@@ -25,7 +25,6 @@ const EditAvatarPopup = (props) => {
             </div>
         </PopupWithForm>
     )
-
 }
 
 export default EditAvatarPopup;

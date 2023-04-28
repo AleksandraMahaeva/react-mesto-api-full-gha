@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import * as Auth from './Auth.js';
+import * as auth from '../utils/auth.js';
 import { useNavigate } from 'react-router';
-// import './styles/Login.css';
 
 const Login = (props) => {
   const [formValue, setFormValue] = useState({
     email: '',
     password: '',
   })
-
 
   const navigate = useNavigate();
 
@@ -25,15 +23,7 @@ const Login = (props) => {
     if (!formValue.email || !formValue.password) {
       return;
     }
-    Auth.authorize(formValue.email, formValue.password)
-      .then((data) => {
-        if (data.token) {
-          setFormValue({ email: '', password: '' })
-          props.handleLogin();
-          navigate('/', {replace: true});
-        }
-      })
-      .catch(err => console.log(err));
+    props.handleLogin(formValue.email, formValue.password,  () => setFormValue({ email: '', password: '' }));
   }
 
   return (
@@ -48,9 +38,6 @@ const Login = (props) => {
       </form>
     </div>
   );
-
-
 }
-
 
 export default Login;

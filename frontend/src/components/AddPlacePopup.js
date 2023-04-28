@@ -12,6 +12,8 @@ const AddPlacePopup = (props) => {
             name,
             link: url,
         });
+        setUrl('');
+        setName('');
     }
 
     return (
@@ -31,7 +33,3 @@ const AddPlacePopup = (props) => {
 }
 
 export default AddPlacePopup;
-
-
-
-
