@@ -8,10 +8,9 @@ const AddPlacePopup = (props) => {
 
     function handleAddPlaceSubmit(e) {
         e.preventDefault();
-        onAddCard({
-            name,
-            link: url,
-        });
+        onAddCard({ name, link: url });
+        setUrl('');
+        setName('');
     }
 
     return (
