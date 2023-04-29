@@ -37,14 +37,14 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.use(require('./routes/user'));
+
 app.use(require('./routes/card'));
 
 app.use('*', () => {
   throw new NotFoundError('Был запрошен несуществующий адрес');
 });
-
-app.use(doError);
 app.use(errors());
+app.use(doError);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
