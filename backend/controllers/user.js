@@ -94,7 +94,8 @@ module.exports.login = (req, res, next) => {
           res.cookie('userToken', token, {
             maxAge: '3600000',
             httpOnly: true,
-            sameSite: true,
+            sameSite: false,
+            secure: false, //process.env.NODE_ENV === "production",
           }).send({ message: 'Вы успешно авторизовались' });
         });
     })

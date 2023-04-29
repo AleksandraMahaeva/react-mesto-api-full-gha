@@ -3,19 +3,41 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { default: validator } = require('validator');
+const cors = require('cors')
 const { doError } = require('./doError');
 const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/notFoundError');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
-app.use(cookieParser());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true,
+}));
+// app.use(cors({credentials: true}));
+
+// const options = {  
+//   origin: [    
+//     'http://localhost:3001',    
+//     // 'https://ВАШ ДОМЕЙН С ДОКУМЕНТА',    
+//     // 'https://YOUR.github.io',  
+//   ],  
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],  
+//   preflightContinue: false,  
+//   optionsSuccessStatus: 204,  
+//   allowedHeaders: ['Content-Type', 'origin', 'Authorization'],  
+//   credentials: true,
+// };
+
+// app.use('*', cors(options));
+
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {});
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded());
 
 app.post('/signin', celebrate({
