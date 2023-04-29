@@ -6,6 +6,7 @@ const { default: validator } = require('validator');
 const cors = require('cors')
 const { doError } = require('./doError');
 const { login, createUser } = require('./controllers/user');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/notFoundError');
 
@@ -24,12 +25,18 @@ const options = {
 
 app.use('*', cors(options));
 
-
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
 
+app.use(requestLogger);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -56,6 +63,8 @@ app.use(require('./routes/card'));
 app.use('*', () => {
   throw new NotFoundError('Был запрошен несуществующий адрес');
 });
+
+app.use(errorLogger);
 app.use(errors());
 app.use(doError);
 
