@@ -11,14 +11,14 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/notFoundError');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
 const options = {
   origin: [
     'https://aleksandram.nomoredomains.monster',
-    'http://localhost:3001',
+    'http://localhost:3000',
     'https://github.com/AleksandraMahaeva/react-mesto-api-full-gha',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
