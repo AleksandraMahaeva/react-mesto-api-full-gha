@@ -71,9 +71,9 @@ class Api {
     }
 }
 
-const api = new Api({
-    baseUrl: 'https://api.aleksandram.nomoredomains.monster',
-    headers: {'Content-Type': 'application/json'}
-});
+// const api = new Api({
+//     baseUrl: 'https://api.aleksandram.nomoredomains.monster',
+//     headers: {'Content-Type': 'application/json'}
+// });
 
-export default api;
+// export default api;
