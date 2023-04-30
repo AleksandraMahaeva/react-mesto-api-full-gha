@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { celebrate, Joi, errors } = require('celebrate');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -15,7 +16,11 @@ const { PORT = 3007 } = process.env;
 const app = express();
 
 const options = {
-  origin: ['https://aleksandram.nomoredomains.monster'],
+  origin: [
+    'https://aleksandram.nomoredomains.monster',
+    'http://localhost:3000',
+    'https://github.com/AleksandraMahaeva/react-mesto-api-full-gha',
+  ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
   optionsSuccessStatus: 204,
