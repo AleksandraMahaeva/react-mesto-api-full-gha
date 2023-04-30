@@ -15,6 +15,8 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
+mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
+
 const options = {
   origin: [
     'https://aleksandram.nomoredomains.monster',
@@ -29,8 +31,6 @@ const options = {
 };
 
 app.use('*', cors(options));
-
-mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {});
 
 app.use(requestLogger);
 app.use(express.json());
