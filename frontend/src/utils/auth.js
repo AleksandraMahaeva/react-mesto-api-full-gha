@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.aleksandram.nomoredomains.monster';
+export const BASE_URL = 'https://api.aleksandram.nomoredomains.monster'; // 'http://localhost:3001' 
 
 const getResponseData = (res) => {
   if (!res.ok) {
@@ -20,7 +20,7 @@ export const register = (email, password) => {
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
-    'credentials': 'include',
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json"
     },

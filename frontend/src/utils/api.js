@@ -72,7 +72,7 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'https://api.aleksandram.nomoredomains.monster',
+    baseUrl: 'https://api.aleksandram.nomoredomains.monster', // 'http://localhost:3001'
     headers: {'Content-Type': 'application/json'}
 });
 

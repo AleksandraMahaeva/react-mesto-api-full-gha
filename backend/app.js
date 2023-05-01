@@ -1,26 +1,21 @@
-require('dotenv').config();
 const { celebrate, Joi, errors } = require('celebrate');
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { default: validator } = require('validator');
-const cors = require('cors')
+const cors = require('cors');
 const { doError } = require('./doError');
 const { login, createUser } = require('./controllers/user');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/notFoundError');
 
-const { PORT = 3023 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
 const options = {
-  origin: [
-    'https://aleksandram.nomoredomains.monster',
-    'http://localhost:3000',
-    'https://github.com/AleksandraMahaeva/react-mesto-api-full-gha',
-  ],
+  origin: ['https://aleksandram.nomoredomains.monster', 'http://localhost:3000'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
   optionsSuccessStatus: 204,
