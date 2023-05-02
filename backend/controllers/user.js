@@ -7,6 +7,9 @@ const UniqueError = require('../errors/uniqueError');
 const AuthorizError = require('../errors/authorizError');
 
 const notFoundUserMessage = 'Пользователь не найден';
+const { NODE_ENV, JWT_SECRET } = process.env;
+const isProduction = NODE_ENV === 'production';
+const key = isProduction ? JWT_SECRET : 'some-secret-key';
 
 module.exports.createUser = (req, res, next) => {
   const {
@@ -88,14 +91,14 @@ module.exports.login = (req, res, next) => {
           }
           const token = jwt.sign(
             { _id: user._id },
-            'some-secret-key',
+            { key },
             { expiresIn: '7d' },
           );
           res.cookie('userToken', token, {
             maxAge: '3600000',
             httpOnly: true,
             sameSite: false,
-            secure: process.env.NODE_ENV === 'production', // false
+            secure: isProduction,
           }).send({ message: 'Вы успешно авторизовались' });
         });
     })
