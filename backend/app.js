@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { celebrate, Joi, errors } = require('celebrate');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -9,7 +10,6 @@ const { login, createUser } = require('./controllers/user');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/notFoundError');
-require('dotenv').config();
 
 const { PORT = 3001 } = process.env;
 
